@@ -1,5 +1,5 @@
 class GameCell
-  attr_writer :neighbours, :alive
+  attr_accessor :neighbours, :alive
 
   def initialize(alive = false)
     @alive = alive

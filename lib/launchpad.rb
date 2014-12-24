@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require 'unimidi'
 
 class Launchpad
@@ -11,7 +9,11 @@ class Launchpad
   end
 
   def light(x, y)
-    @output.puts 144, grid_to_note(x, y), 1
+    trigger_light x, y, 120
+  end
+
+  def unlight(x, y)
+    trigger_light x, y, 0
   end
 
   def button_presses
@@ -22,25 +24,22 @@ class Launchpad
          .reject { |e| e.last == 0 }
          .map { |e| note_to_grid e[1] }
 
-    end.reject { |e| e == [] }
+    end.first
   end
 
   private
 
+  def trigger_light(x, y, vel)
+    @output.puts 144, grid_to_note(x, y), vel
+  end
+
   def note_to_grid(note)
     y = note / 16
-    x = note - y
+    x = note - 16 * y
     [x, y]
   end
 
   def grid_to_note(x, y)
     x + y * 16
   end
-end
-
-lp = Launchpad.new
-
-loop do
-  p lp.button_presses
-  sleep 0.2
 end
