@@ -18,7 +18,7 @@ Thread.new do
       end
     end
     game.next_gen!
-    sleep 0.15
+    sleep 0.05
   end
 end
 
