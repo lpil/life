@@ -27,5 +27,6 @@ loop do
     x = e[0]
     y = e[1]
     game.board[x][y].alive = true
+    lpad.light x, y, :red
   end
 end

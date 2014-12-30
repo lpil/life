@@ -8,8 +8,13 @@ class Launchpad
     @input  = UniMIDI::Input.find  { |e| e.name.match(/Launchpad/) }.open
   end
 
-  def light(x, y)
-    trigger_light x, y, 120
+  def light(x, y, colour = :green)
+    colours = {
+      green:  120,
+      red:    3
+    }
+
+    trigger_light x, y, colours[colour]
   end
 
   def unlight(x, y)
