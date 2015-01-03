@@ -5,6 +5,7 @@ require_relative '../lib/launchpad'
 
 game = GameOfLife.new 8, 8
 lpad = Launchpad.new
+time = 0.05
 
 Thread.new do
   loop do
@@ -18,7 +19,7 @@ Thread.new do
       end
     end
     game.next_gen!
-    sleep 0.05
+    sleep time
   end
 end
 
@@ -26,8 +27,12 @@ loop do
   lpad.button_presses.each do |e|
     x = e[0]
     y = e[1]
-    next if x > 7
-    game.board[x][y].alive = true
-    lpad.light x, y, :red
+    # If inside the grid
+    if x < 8
+      game.board[x][y].alive = true
+      lpad.light x, y, :red
+    else
+      time = 0.01 + y * 0.01
+    end
   end
 end
