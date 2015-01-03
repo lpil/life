@@ -26,6 +26,7 @@ loop do
   lpad.button_presses.each do |e|
     x = e[0]
     y = e[1]
+    next if x > 7
     game.board[x][y].alive = true
     lpad.light x, y, :red
   end
